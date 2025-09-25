@@ -1,4 +1,4 @@
-data class student(val id: Int, val name: String, val age: Int, val avg:Int, val email:String)
+data class student(val id: Int, val name: String, val age: Int, var avg:Int, var email:String)
 fun add(students: MutableList<student>){
     println("Enter Student ID : ")
     val id=readLine()!!.toInt()
@@ -55,6 +55,29 @@ fun delete(students: MutableList<student>){
             break
         }
     }
+    println("Student with ID: $id has been successfully deleted.")
+}
+
+fun update(students: MutableList<student>){
+    println("Enter Student ID whose details you want to update : ")
+    val id=readLine()!!.toInt()
+    for(i in students.indices){
+        if(students[i].id == id){
+            println("Update Marks :- ")
+            println("Maths : ")
+            val mk1=readLine()!!.toInt()
+            println("Science : ")
+            val mk2=readLine()!!.toInt()
+            println("English : ")
+            val mk3=readLine()!!.toInt()
+            val avg=(mk1+mk2+mk3)/3
+            println("Update email :- ")
+            val email=readLine()!!
+            students[i].avg=avg
+            students[i].email=email
+            break
+        }
+    }
 }
 
 fun search(students: List<student>){
@@ -94,7 +117,8 @@ while (running) {
     println("3. Search Student")
     println("4. Find the topper")
     println("5. Delete Student")
-    println("6. Exit")
+    println("6. Update Student")
+    println("7. Exit")
     print("Enter choice: ")
     when (readLine()!!.toInt()) {
         1 -> {
@@ -116,8 +140,10 @@ while (running) {
         5->{
             delete(students)
         }
-
         6->{
+            update(students)
+        }
+        7->{
             println("Exiting...")
             running = false
         }
