@@ -1,4 +1,6 @@
-data class student(val id: Int, val name: String, val age: Int, var avg:Int, var email:String)
+data class student(
+    val id: Int, val name: String, val age: Int, var avg:Int, var email:String
+)
 fun add(students: MutableList<student>){
     println("Enter Student ID : ")
     val id=readLine()!!.toInt()
