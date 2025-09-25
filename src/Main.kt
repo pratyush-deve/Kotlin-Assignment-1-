@@ -49,7 +49,7 @@ fun sort1(students: List<student>){
     if(students.isEmpty()) println("NO students found")
     else{
         val found=students.sortedBy { it.avg }.first()
-        println("The topper is ${found.name} with the Average marks ${found.avg}")
+        println("The topper is ${found.name} with the Average marks ${found.avg}.")
     }
 }
 
