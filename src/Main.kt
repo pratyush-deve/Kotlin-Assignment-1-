@@ -45,6 +45,18 @@ fun sort(students: List<student>){
     println("The topper is $found with the Average marks $max")
 }
 
+fun delete(students: MutableList<student>){
+    println("Enter Student ID to delete : ")
+    val id=readLine()!!.toInt()
+    var i:Int=1
+    for(i in students.indices){
+        if(students[i].id == id){
+            students.remove(students[i])
+            break
+        }
+    }
+}
+
 fun search(students: List<student>){
     println("Search by:\n1. Student ID\n2. Student Name ")
     when(readLine()!!.toInt()){
@@ -81,7 +93,8 @@ while (running) {
     println("2. View Students")
     println("3. Search Student")
     println("4. Find the topper")
-    println("5. Exit")
+    println("5. Delete Student")
+    println("6. Exit")
     print("Enter choice: ")
     when (readLine()!!.toInt()) {
         1 -> {
@@ -101,6 +114,10 @@ while (running) {
         }
 
         5->{
+            delete(students)
+        }
+
+        6->{
             println("Exiting...")
             running = false
         }
