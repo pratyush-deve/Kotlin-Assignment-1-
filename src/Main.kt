@@ -25,7 +25,7 @@ fun add(students: MutableList<student>){
 fun display(students: List<student>){
     if(students.isEmpty()) println("NO students found")
     else{
-        students.forEach {println(it)}
+        students.map{"ID: ${it.id}, Name: ${it.name}, Age: ${it.age}, Email: ${it.email}"}.forEach{println(it)}
     }
 }
 
@@ -43,6 +43,14 @@ fun sort(students: List<student>){
         }
     }
     println("The topper is $found with the Average marks $max")
+}
+
+fun sort1(students: List<student>){
+    if(students.isEmpty()) println("NO students found")
+    else{
+        val found=students.sortedBy { it.avg }.first()
+        println("The topper is ${found.name} with the Average marks ${found.avg}")
+    }
 }
 
 fun delete(students: MutableList<student>){
@@ -99,7 +107,7 @@ fun search(students: List<student>){
             if(students.isEmpty()) println("NO students found")
             else{
                 val found1=students.find { it.name == names}
-                if(found1 != null) println("Student with name $found1 is found!!!")
+                if(found1 != null) println("Student with name ${found1.name} is found!!!")
                 else println("Student $names not found!!!")
             }
         }
@@ -120,7 +128,7 @@ while (running) {
     println("6. Update Student")
     println("7. Exit")
     print("Enter choice: ")
-    when (readLine()!!.toInt()) {
+    when (readLine()?.toIntOrNull()) {
         1 -> {
             add(students)
         }
@@ -134,7 +142,7 @@ while (running) {
         }
 
         4->{
-            sort(students)
+            sort1(students)
         }
 
         5->{
