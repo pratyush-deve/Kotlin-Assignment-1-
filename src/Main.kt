@@ -1,6 +1,6 @@
 data class student(
     val id: Int, val name: String, val age: Int, var avg:Int, var email:String,
-    val marks: Map<String, Int>
+    var marks: Map<String, Int>
 )
 fun add(students: MutableList<student>){
     println("Enter Student ID : ")
@@ -66,7 +66,7 @@ fun sort2(students: List<student>){
     val subj: String
     println("Enter the subject(Maths/Science/English) to find the subject topper : ")
     subj= readLine()!!
-    val topper=students.sortedByDescending{it.marks[subj]?:0}.first()
+    val topper=students.sortedByDescending{it.marks[subj]?:0}.firstOrNull()
     if(topper!=null){
         println("The Topper for the $subj is ${topper.name} with ${topper.marks[subj]} marks")
     }
@@ -105,6 +105,11 @@ fun update(students: MutableList<student>){
             val email=readLine()!!
             students[i].avg=avg
             students[i].email=email
+            students[i].marks=mapOf(
+                "Maths" to mk1,
+                "Science" to mk2,
+                "English" to mk3,
+            )
             break
         }
     }
