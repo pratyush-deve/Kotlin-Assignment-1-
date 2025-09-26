@@ -1,5 +1,6 @@
 data class student(
-    val id: Int, val name: String, val age: Int, var avg:Int, var email:String
+    val id: Int, val name: String, val age: Int, var avg:Int, var email:String,
+    val marks: Map<String, Int>
 )
 fun add(students: MutableList<student>){
     println("Enter Student ID : ")
@@ -15,11 +16,16 @@ fun add(students: MutableList<student>){
     val mk2=readLine()!!.toInt()
     println("English : ")
     val mk3=readLine()!!.toInt()
+    val marks=mapOf(
+        "Maths" to mk1,
+        "Science" to mk2,
+        "English" to mk3,
+    )
     val avg=(mk1+mk2+mk3)/3
     println("Enter email : ")
     val email=readLine()!!
 
-    val kid=student(id,name,age,avg,email)
+    val kid=student(id,name,age,avg,email,marks)
     students.add(kid)
     println("Student has been successfully added.")
 }
@@ -27,7 +33,7 @@ fun add(students: MutableList<student>){
 fun display(students: List<student>){
     if(students.isEmpty()) println("NO students found")
     else{
-        students.map{"ID: ${it.id}, Name: ${it.name}, Age: ${it.age}, Email: ${it.email}"}.forEach{println(it)}
+        students.map{"ID: ${it.id}, Name: ${it.name}, Age: ${it.age}, Average marks: ${it.avg}, Email: ${it.email}"}.forEach{println(it)}
     }
 }
 
@@ -46,12 +52,26 @@ fun sort(students: List<student>){
     }
     println("The topper is $found with the Average marks $max")
 }
-
+//Overall Topper->
 fun sort1(students: List<student>){
     if(students.isEmpty()) println("NO students found")
     else{
         val found=students.sortedByDescending{ it.avg }.first()
         println("The topper is ${found.name} with the Average marks ${found.avg}.")
+    }
+}
+
+//Subject Topper->
+fun sort2(students: List<student>){
+    val subj: String
+    println("Enter the subject(Maths/Science/English) to find the subject topper : ")
+    subj= readLine()!!
+    val topper=students.sortedByDescending{it.marks[subj]?:0}.first()
+    if(topper!=null){
+        println("The Topper for the $subj is ${topper.name} with ${topper.marks[subj]} marks")
+    }
+    else{
+        println("Invalid Subject or no marks found")
     }
 }
 
@@ -144,7 +164,20 @@ while (running) {
         }
 
         4->{
-            sort1(students)
+            println("1. Overall Topper\n2. Subject Topper")
+            println("Enter choice: ")
+            val choice=readLine()!!.toIntOrNull()
+            when(choice){
+                1->{
+                    sort1(students)
+                }
+                2->{
+                    sort2(students)
+                }
+                else->{
+                    println("Invalid choice")
+                }
+            }
         }
 
         5->{
