@@ -1,7 +1,16 @@
+abstract class Kid(
+        val id: Int, val name: String, val age: Int
+        ){
+    abstract fun display()
+}
 data class student(
-    val id: Int, val name: String, val age: Int, var avg:Int, var email:String,
+    val sid: Int, val sname: String, val sage: Int, var avg:Int, var email:String,
     var marks: Map<String, Int>
-)
+) : Kid(sid, sname, sage){
+    override fun display(){
+        println("ID: $id, Name: $name, Age: $age, Average: $avg, Email: $email")
+    }
+}
 fun add(students: MutableList<student>){
     println("Enter Student ID : ")
     val id=readLine()!!.toInt()
@@ -33,7 +42,7 @@ fun add(students: MutableList<student>){
 fun display(students: List<student>){
     if(students.isEmpty()) println("NO students found")
     else{
-        students.map{"ID: ${it.id}, Name: ${it.name}, Age: ${it.age}, Average marks: ${it.avg}, Email: ${it.email}"}.forEach{println(it)}
+        students.forEach {it.display()}
     }
 }
 
@@ -124,7 +133,10 @@ fun search(students: List<student>){
             if(students.isEmpty()) println("NO students found")
             else{
                 val found=students.find { it.id == ids }
-                if(found != null) println("Found Student ID : $found")
+                if(found != null) {
+                    println("Student found :-")
+                    found.display()
+                }
                 else println("Student not found")
             }
         }
@@ -134,7 +146,11 @@ fun search(students: List<student>){
             if(students.isEmpty()) println("NO students found")
             else{
                 val found1=students.find { it.name == names}
-                if(found1 != null) println("Student with name ${found1.name} is found!!!")
+                if(found1 != null) {
+                    println("Student found :- ")
+                    found1.display()
+                }
+
                 else println("Student $names not found!!!")
             }
         }
